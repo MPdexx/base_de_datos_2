@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="1.1.0-alpha" use-changelog="false" last-position="0,0" last-zoom="0.8" max-obj-count="28"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="new_database" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" name-color="#000000" sql-disabled="true">
+</schema>
+
+<schema name="users_management" layers="0" rect-visible="true" fill-color="#e1e1e1" name-color="#31363b">
+	<role name="postgres"/>
+</schema>
+
+<schema name="rooms_management" layers="0" rect-visible="true" fill-color="#e1e1e1" name-color="#31363b">
+	<role name="postgres"/>
+</schema>
+
+<schema name="services_management" layers="0" rect-visible="true" fill-color="#e1e1e1" name-color="#31363b">
+	<role name="postgres"/>
+</schema>
+
+<table name="guests" layers="0" collapse-mode="0" max-obj-count="0" z-value="0">
+	<schema name="users_management"/>
+	<role name="postgres"/>
+	<position x="500" y="140"/>
+</table>
+
+<table name="membership_types" layers="0" collapse-mode="2" max-obj-count="0" z-value="0">
+	<schema name="users_management"/>
+	<role name="postgres"/>
+	<position x="100" y="80"/>
+</table>
+
+<table name="bookings" layers="0" collapse-mode="2" max-obj-count="0" z-value="0">
+	<schema name="rooms_management"/>
+	<role name="postgres"/>
+	<position x="1240" y="680"/>
+</table>
+
+<table name="users" layers="0" collapse-mode="2" max-obj-count="0" z-value="0">
+	<schema name="users_management"/>
+	<role name="postgres"/>
+	<position x="320" y="120"/>
+</table>
+
+<table name="employees" layers="0" collapse-mode="2" max-obj-count="0" z-value="0">
+	<schema name="users_management"/>
+	<role name="postgres"/>
+	<position x="400" y="60"/>
+</table>
+
+<table name="rooms" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="rooms_management"/>
+	<role name="postgres"/>
+	<position x="1240" y="460"/>
+	<column name="room_id" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="branch_fn" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="room_number">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="room_type_fn" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="floor" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="room_status" not-null="true" default-value="Available">
+		<type name="rooms_management.room_status" length="0"/>
+	</column>
+	<constraint name="rooms_pk" type="pk-constr" table="rooms_management.rooms">
+		<columns names="room_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="room_types" layers="0" collapse-mode="1" max-obj-count="13" z-value="0">
+	<schema name="rooms_management"/>
+	<role name="postgres"/>
+	<position x="920" y="120"/>
+	<column name="room_type_id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="name">
+		<type name="varchar" length="60"/>
+		<comment> <![CDATA[Ej: "Suite Presidencial", "Habitación Doble Estándar".]]> </comment>
+	</column>
+	<column name="description">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Descripcion comercial para la web]]> </comment>
+	</column>
+	<column name="adults_occupancy">
+		<type name="integer" length="0"/>
+		<comment> <![CDATA[Capacidad base de la habitacion de este tipo.]]> </comment>
+	</column>
+	<column name="kid_occupancy">
+		<type name="integer" length="0"/>
+		<comment> <![CDATA[Cantidad de niños que caben.]]> </comment>
+	</column>
+	<column name="max_occupancy">
+		<type name="integer" length="0"/>
+		<comment> <![CDATA[Capacidad máxima con cama supletoria (ej: 3).]]> </comment>
+	</column>
+	<column name="size_meters">
+		<type name="decimal" length="10" precision="2"/>
+		<comment> <![CDATA[ Metros cuadrados de las habitaciones de este tipo.]]> </comment>
+	</column>
+	<column name="bed1_fn" not-null="true">
+		<type name="integer" length="60"/>
+		<comment> <![CDATA[Tipo de cama numero 1
+]]> </comment>
+	</column>
+	<column name="bed2_fn">
+		<type name="integer" length="0"/>
+		<comment> <![CDATA[Tipo de cama numero 2]]> </comment>
+	</column>
+	<column name="room_view_fn">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="property_fn" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="room_type_pk" type="pk-constr" table="rooms_management.room_types">
+		<columns names="room_type_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="keys" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="rooms_management"/>
+	<role name="postgres"/>
+	<position x="1660" y="660"/>
+	<column name="key_id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="room_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="keys_pk" type="pk-constr" table="rooms_management.keys">
+		<columns names="key_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="branches" layers="0" collapse-mode="0" max-obj-count="0" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="320" y="640"/>
+</table>
+
+<table name="branch_type" layers="0" collapse-mode="2" pagination="true" attribs-page="0" ext-attribs-page="0" max-obj-count="0" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="120" y="620"/>
+</table>
+
+<table name="facilities" layers="0" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="services_management"/>
+	<role name="postgres"/>
+	<comment> <![CDATA[Servicios que se ofrecen]]> </comment>
+	<position x="20" y="340"/>
+	<column name="facility_id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="name">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="facility_type_fn" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="is_paid">
+		<type name="boolean" length="0"/>
+		<comment> <![CDATA[¿Es de pago adicional o está incluida?]]> </comment>
+	</column>
+	<column name="operating_hours">
+		<type name="varchar" length="11"/>
+	</column>
+	<column name="location_fn" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="capacity">
+		<type name="integer" length="0"/>
+		<comment> <![CDATA[Si aplica. ¿Cuántas personas caben en el salón? ¿Cuántas mesas tiene el restaurante?]]> </comment>
+	</column>
+	<constraint name="facilities_pk" type="pk-constr" table="services_management.facilities">
+		<columns names="facility_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="beds_types" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="rooms_management"/>
+	<role name="postgres"/>
+	<comment> <![CDATA[Tipos de camas que pueden tener los tipos de habitacion]]> </comment>
+	<position x="1360" y="100"/>
+	<column name="bed_type_id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="name">
+		<type name="varchar" length="60"/>
+	</column>
+	<column name="size">
+		<type name="decimal" length="10" precision="2"/>
+	</column>
+	<constraint name="beds_types_pk" type="pk-constr" table="rooms_management.beds_types">
+		<columns names="bed_type_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="facility_type" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="services_management"/>
+	<role name="postgres"/>
+	<position x="380" y="360"/>
+	<column name="facility_type_id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="name">
+		<type name="varchar" length="60"/>
+	</column>
+	<constraint name="facility_type_pk" type="pk-constr" table="services_management.facility_type">
+		<columns names="facility_type_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="locations" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="services_management"/>
+	<role name="postgres"/>
+	<position x="340" y="240"/>
+	<column name="location_id">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="description">
+		<type name="varchar" length="0"/>
+	</column>
+</table>
+
+<table name="views_types" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="rooms_management"/>
+	<role name="postgres"/>
+	<comment> <![CDATA[Tipos de vistas que pueden tener los tipos de habitaciones]]> </comment>
+	<position x="1360" y="320"/>
+	<column name="view_type_id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="name">
+		<type name="varchar" length="60"/>
+	</column>
+	<constraint name="views_types_pk" type="pk-constr" table="rooms_management.views_types">
+		<columns names="view_type_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="room_types_amenities" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="rooms_management"/>
+	<role name="postgres"/>
+	<comment> <![CDATA[Servicios que contienen las habitaciones]]> </comment>
+	<position x="900" y="480"/>
+	<column name="room_amenity_id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="room_type_id_fn" not-null="true">
+		<type name="integer" length="0"/>
+		<comment> <![CDATA[Id del servicio en la tabla facilities]]> </comment>
+	</column>
+	<column name="facility_id_fn" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="cuantity">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="room_amenities_pk" type="pk-constr" table="rooms_management.room_types_amenities">
+		<columns names="room_amenity_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="property_types" layers="0" collapse-mode="2" max-obj-count="0" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="0" y="720"/>
+</table>
+
+<table name="user_type" layers="0" collapse-mode="2" max-obj-count="0" z-value="0">
+	<schema name="users_management"/>
+	<role name="postgres"/>
+	<position x="600" y="60"/>
+</table>
+
+<table name="roles" layers="0" collapse-mode="2" max-obj-count="0" z-value="0">
+	<schema name="users_management"/>
+	<role name="postgres"/>
+	<position x="640" y="140"/>
+</table>
+
+<table name="activities" layers="0" collapse-mode="2" max-obj-count="0" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="0" y="640"/>
+</table>
+
+<table name="members" layers="0" collapse-mode="2" max-obj-count="0" z-value="0">
+	<schema name="users_management"/>
+	<role name="postgres"/>
+	<position x="140" y="140"/>
+</table>
+
+<table name="property" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="460" y="660"/>
+	<column name="property_id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="property_type_fn" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="branch_fn" not-null="true">
+		<type name="integer" length="0"/>
+		<comment> <![CDATA[En que sucursal se encuentra la propiedad]]> </comment>
+	</column>
+	<column name="section_fn" not-null="true">
+		<type name="integer" length="0"/>
+		<comment> <![CDATA[Secciones que tiene la propiedad
+]]> </comment>
+	</column>
+	<column name="floors" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="building_section_fn" not-null="true">
+		<type name="integer" length="0"/>
+		<comment> <![CDATA[Seccion en donde se encuentra la propiedad ]]> </comment>
+	</column>
+	<constraint name="property_pk" type="pk-constr" table="public.property">
+		<columns names="property_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="buildings_sections" layers="0" collapse-mode="2" max-obj-count="0" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="240" y="780"/>
+</table>
+
+<table name="sections" layers="0" collapse-mode="2" max-obj-count="0" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="60" y="800"/>
+</table>
+
+<usertype name="room_status" configuration="enumeration">
+	<schema name="rooms_management"/>
+	<role name="postgres"/>
+	<comment> <![CDATA[Estado de la habitacion]]> </comment>
+	<enumeration label="Available"/>
+	<enumeration label="Occupied"/>
+	<enumeration label="Reserved"/>
+	<enumeration label="Dirty"/>
+	<enumeration label="Cleaning"/>
+	<enumeration label="Inspection"/>
+	<enumeration label="Maintenance"/>
+	<enumeration label="Out of Order"/>
+	<enumeration label="Blocked"/>
+</usertype>
+
+<constraint name="bed1_fn" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rooms_management.beds_types" table="rooms_management.room_types">
+	<columns names="bed1_fn" ref-type="src-columns"/>
+	<columns names="bed_type_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="room_view_fn" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rooms_management.views_types" table="rooms_management.room_types">
+	<columns names="room_view_fn" ref-type="src-columns"/>
+	<columns names="view_type_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="bed2_fn" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rooms_management.beds_types" table="rooms_management.room_types">
+	<columns names="bed2_fn" ref-type="src-columns"/>
+	<columns names="bed_type_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="property_fn" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.property" table="rooms_management.room_types">
+	<columns names="property_fn" ref-type="src-columns"/>
+	<columns names="property_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="facility_type_fn" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="services_management.facility_type" table="services_management.facilities">
+	<columns names="facility_type_fn" ref-type="src-columns"/>
+	<columns names="facility_type_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="location_fn" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="services_management.locations" table="services_management.facilities">
+	<columns names="location_fn" ref-type="src-columns"/>
+	<columns names="location_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="room_type_id_fn" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="rooms_management.room_types" table="rooms_management.room_types_amenities">
+	<columns names="room_type_id_fn" ref-type="src-columns"/>
+	<columns names="room_type_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="facility_id_fn" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="services_management.facilities" table="rooms_management.room_types_amenities">
+	<columns names="facility_id_fn" ref-type="src-columns"/>
+	<columns names="facility_id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_facilities_facility_type" type="relfk" layers="0"
+	 src-table="services_management.facilities"
+	 dst-table="services_management.facility_type" reference-fk="facility_type_fn"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="-88.6287" y="-41.7892"/>
+	</label>
+</relationship>
+
+<relationship name="rel_facilities_locations" type="relfk" layers="0"
+	 src-table="services_management.facilities"
+	 dst-table="services_management.locations" reference-fk="location_fn"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_room_type_beds_types" type="relfk" layers="0"
+	 src-table="rooms_management.room_types"
+	 dst-table="rooms_management.beds_types" reference-fk="bed1_fn"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="59.5713" y="-20.321"/>
+	</label>
+</relationship>
+
+<relationship name="rel_room_type_views_types" type="relfk" layers="0"
+	 src-table="rooms_management.room_types"
+	 dst-table="rooms_management.views_types" reference-fk="room_view_fn"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="21.5713" y="-24.6854"/>
+	</label>
+</relationship>
+
+<relationship name="rel_room_type_beds_types1" type="relfk" layers="0"
+	 src-table="rooms_management.room_types"
+	 dst-table="rooms_management.beds_types" reference-fk="bed2_fn"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_room_amenities_room_type" type="relfk" layers="0"
+	 src-table="rooms_management.room_types_amenities"
+	 dst-table="rooms_management.room_types" reference-fk="room_type_id_fn"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_room_amenities_facilities" type="relfk" layers="0"
+	 src-table="rooms_management.room_types_amenities"
+	 dst-table="services_management.facilities" reference-fk="facility_id_fn"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="-26.1287" y="-20.7284"/>
+	</label>
+</relationship>
+
+<relationship name="rel_room_types_property" type="relfk" layers="0"
+	 src-table="rooms_management.room_types"
+	 dst-table="public.property" reference-fk="property_fn"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="-41.2864" y="48.847"/>
+	</label>
+</relationship>
+
+</dbmodel>
